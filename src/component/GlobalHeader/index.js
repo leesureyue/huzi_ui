@@ -110,12 +110,13 @@ export default class GlobalHeader extends PureComponent {
           <HeaderSearch
             className={`${styles.action} ${styles.search}`}
             placeholder="站内搜索"
-            dataSource={['后台管理', '搜索提示二', '搜索提示三']}
+            dataSource={['后台管理', '数据分析', '工作空间']}
             onSearch={value => {
               console.log('input', value); // eslint-disable-line
             }}
             onPressEnter={value => {
               console.log('enter', value); // eslint-disable-line
+              
             }}
           />
           <Tooltip title="使用文档">

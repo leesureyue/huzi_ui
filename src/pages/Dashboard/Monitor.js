@@ -1,22 +1,21 @@
 import styles from './Monitor.less';
 import React from 'react';
-import SimplePieChart from '../../component/SimpleChart/SimplePieChart';
+import SimpleColumnChart from '../../component/SimpleChart/SimpleColumnChart';
 
-
-class Analysis extends React.Component{
+//直方图分析页面
+class Monitor extends React.Component{
 
   constructor(props){
     super(props);
   }
   state={
-    pieChartData:{}
+    pieChartkData:{}
   }
 
   componentDidMount(){
-    fetch('/chart/getPieChartData')
+    fetch('/chart/getColumnChartData')
     .then(res=>res.json())
     .then(data=>{
-      console.log(data)
       this.setState({pieChartData:data.result})
     })
     .catch(e=>console.log(e));
@@ -25,10 +24,10 @@ class Analysis extends React.Component{
   render(){
     return (
       <div>
-        <SimplePieChart  data={this.state.pieChartData}/>
+        <SimpleColumnChart  data={this.state.pieChartData}/>
       </div>
     )
   }
 }
 
-export default Analysis;
+export default Monitor;

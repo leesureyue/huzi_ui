@@ -12,8 +12,10 @@ export default {
       path:'/',
       component:'index.js',
       routes:[
-        {patf:'/',component:'Dashboard/Analysis'},
-        {path:'/dashboard/analysis',component:'Dashboard/Analysis'},
+        {path:'/',component:'Dashboard/Welcome'},
+        {path:'analysis',component:'Dashboard/Analysis'},
+        {path:'monitor',component:'Dashboard/Monitor'},
+        {path:'workplace',component:'Dashboard/WorkSpace'}
       ]
     }]
 }

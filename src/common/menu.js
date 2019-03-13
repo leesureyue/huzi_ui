@@ -8,27 +8,17 @@ export function isUrl(path) {
 const menuData = [
   {
     name: '后台管理',
-    icon: 'dashboard',
-    path: 'dashboard',
-    children: [
-      {
-        name: '分析页',
-        path: 'analysis',
-      },
-      {
-        name: '监控页',
-        path: 'monitor',
-      },
-      {
-        name: '工作台',
-        path: 'workplace',
-      },
-    ],
+    icon: 'pie-chart',
+    path: 'analysis',
   },
   {
     name: '数据分析',
-    icon: 'dashboard',
-    path: 'typescript',
+    icon: 'bar-chart',
+    path: 'monitor',
+  },{
+    name:'工作空间',
+    icon:'line-chart',
+    path:'workplace'
   }
 ];
 
