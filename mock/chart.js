@@ -27,9 +27,11 @@ export default {
   'get /chart/getCricleListChart':function(req,res,next){
     res.json({
       result:[
-      {gender: 'male',value: 50,},
-      {gender: 'middle',value: 25,}, 
-      {gender: 'female',value: 25,}]
+      {gender: 'Store 1',value: 40,},
+      {gender: 'Store 2',value: 25,}, 
+      {gender: 'Store 3',value: 25,},
+      {gener:'Store 4',value:20}
+    ]
     })
   },
   'get /chart/getBarChartData':function(req,res,next){
@@ -48,7 +50,7 @@ export default {
   'get /table/getTableData':function(req,res,next){
     res.json({
       result:[{
-          
+
         id: 1,
         ranking: 1,
         category: '类别1',

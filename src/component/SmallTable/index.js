@@ -1,6 +1,6 @@
 import React from 'react';
-import {Table} from 'antd';
-import { EROFS } from 'constants';
+import {Table,Icon} from 'antd';
+
 
 class SmallTable extends React.Component{
 
@@ -102,6 +102,7 @@ class SmallTable extends React.Component{
       title:'支付占比',
       dataIndex:'paid',
       key:'paid',
+      render:text=>(<span>{text}<Icon type="caret-up" style={{color:'red'}}/></span>)
     }];
 
     return (

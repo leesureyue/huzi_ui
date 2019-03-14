@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Chart, Guide, Tooltip, Interval } from 'viser-react';
 
-
 const scale = [
   {
     dataKey: 'value',
@@ -20,7 +19,7 @@ class CricleListChart extends React.Component {
       <Chart
         container="mountNode"
         forceFit={true}
-        height={400}
+        height={200}
         data={this.props.dataSource}
         padding={0}
         scale={scale}
@@ -36,8 +35,11 @@ class CricleListChart extends React.Component {
           }}
         />
         {this.props.dataSource.map((row, index) => {
+          console.log(row)
           return (
-            <Guide
+            <div>
+              
+              <Guide
               key={index}
               type="text"
               top={true}
@@ -49,8 +51,9 @@ class CricleListChart extends React.Component {
               style={{
                 fontSize: 40,
                 textAlign: 'center',
-              }}
-            />
+              }}>
+              </Guide>
+            </div>
           );
         })}
       </Chart>
