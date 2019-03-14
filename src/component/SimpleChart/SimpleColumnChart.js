@@ -19,7 +19,7 @@ class SimpleColumnChart extends React.Component{
   }
 
   componentDidUpdate(prevProps){
-    if(prevProps!=this.props.data){
+    if(prevProps!=this.props.dataSource){
       this.refreshChart();
     }
   }
@@ -30,7 +30,7 @@ class SimpleColumnChart extends React.Component{
   }
 
   refreshChart = () => {
-    this.chart.source(this.props.data);
+    this.chart.source(this.props.dataSource);
     this.chart.interval().position('genre*sold').color('genre');
     this.chart.render();
   };

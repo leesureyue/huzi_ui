@@ -13,7 +13,10 @@ class SimplePieChart extends React.Component{
 
   constructor(props){
     super(props);
-    const dv = new DataSet.View().source(this.props.data);
+  }
+  
+  render(){
+    const dv = new DataSet.View().source(this.props.dataSource);
     dv.transform({
       type: 'percent',
       field: 'count',
@@ -21,15 +24,9 @@ class SimplePieChart extends React.Component{
       as: 'percent'
     });
     const data = dv.rows;
-  }
-
-  componentDidMount(){
-     
-  }
-
-  render(){
-    <Chart forceFit height={400} data={data} scale={scale}>
-        <Tooltip showTitle={false} />
+    return(
+      <Chart forceFit height={400} data={data} scale={scale}>
+      <Tooltip showTitle={false} />
         <Axis />
         <Legend dataKey="item" />
         <Coord type="theta" radius={0.75} innerRadius={0.6} />
@@ -40,7 +37,8 @@ class SimplePieChart extends React.Component{
             }
           }]}
         />
-    </Chart>
+      </Chart>
+    )
   }
 }
 

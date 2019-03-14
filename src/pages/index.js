@@ -4,6 +4,9 @@ import GlobalHeader from '../component/GlobalHeader';
 import SiderMenu  from '../component/SiderMenu';
 import logo from '../images/menu-logo.svg';
 import { getMenuData } from '../common/menu';
+
+import styles from './index.less';
+
 const {Header,Footer,Content} = Layout;
 
 class DashboardLayout extends Component{
@@ -22,7 +25,7 @@ class DashboardLayout extends Component{
     };
     render(){
         return (
-          <Layout>
+          <Layout  className={styles.layout}>
             <SiderMenu
               logo={logo}
               collapsed={this.state.collapsed}
@@ -44,7 +47,7 @@ class DashboardLayout extends Component{
                   onCollapse={this.handleMenuCollapse}
                 />
               </Header>
-              <Content style={{margin: '24px 24px 0', height: '100%' }}>
+              <Content style={{margin: '24px 24px 0'}} >
                 {this.props.children}
               </Content>
               
