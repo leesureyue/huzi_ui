@@ -1,4 +1,4 @@
-import styles from './Monitor.less';
+import styles from './Analysis.less';
 import React from 'react';
 import {message,Divider,Col,Row} from 'antd';
 import CurveChart from '../../component/SimpleChart/CurveChart';
@@ -40,13 +40,15 @@ class Analysis extends React.Component{
 
   render(){
     return (
-      <div style={{minHeight:'800px',minWidth:'900px'}}>
+      <div className={styles.pageContent} style={{minHeight:'800px',minWidth:'900px'}}>
         <h3><span>总下单数：1732</span>
         
         </h3>
         <Row>
           <Col span={12}>
-            <SimplePieChart  dataSource={this.state.pieChartData}/>
+            <SimplePieChart 
+            height={400} 
+            dataSource={this.state.pieChartData}/>
           </Col>
           <Col span={12}>
             <CurveChart/>

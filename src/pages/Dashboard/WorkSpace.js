@@ -1,5 +1,5 @@
 import React from 'react';
-
+import styles from './WorkSpace.less'
 
 class WorkSpace extends React.Component{
   render(){

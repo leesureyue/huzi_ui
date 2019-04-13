@@ -12,7 +12,7 @@ class SimpleColumnChart extends React.Component{
     this.chart = new G2.Chart({
       container: this.containerRef.current,
       width: 450,
-      height: 300
+      height: 320
     });
     this.refreshChart();
     

@@ -25,7 +25,7 @@ class SimplePieChart extends React.Component{
     });
     const data = dv.rows;
     return(
-      <Chart forceFit height={400} data={data} scale={scale}>
+      <Chart forceFit height={this.props.height} data={data} scale={scale}>
       <Tooltip showTitle={false} />
         <Axis />
         <Legend dataKey="item" />

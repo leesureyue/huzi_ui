@@ -1,6 +1,6 @@
 import styles from './Monitor.less';
 import React from 'react';
-import {DatePicker,Row,Col,Badge ,Tabs,Card,message} from 'antd';
+import {DatePicker,Row,Col,Badge ,Tabs,Tag,Card,message} from 'antd';
 import SimpleColumnChart from '../../component/SimpleChart/SimpleColumnChart';
 import SimpleBarChart from '../../component/SimpleChart/SimpleBarChart';
 import SimplePieChart from '../../component/SimpleChart/SimplePieChart';
@@ -15,11 +15,13 @@ class TabCard extends React.Component{
   render(){
      
     return(
-      <Tabs tabBarExtraContent={<RangePicker/>}>
+      <Tabs tabBarExtraContent={<RangePicker/>} 
+      className={styles.tabList}>
         <Tabs.TabPane tab="Session访问" key="1">
         <Row>
           <Col span={16}>
-            <SimpleColumnChart  dataSource={this.props.columnChartData}/>
+            <SimpleColumnChart  
+            dataSource={this.props.columnChartData}/>
           </Col>
           <Col span={8}>
             <h3>Session 排行榜</h3>
@@ -27,10 +29,12 @@ class TabCard extends React.Component{
               {
                 this.props.columnChartData && 
                 (this.props.columnChartData.map(item=>(
-                  <div key={item.id}>
-                    <Badge count={item.id} />
-                    <span>{item.genre}</span>
-                    <span>{item.sold}</span>
+                  <div key={item.id} 
+                  className={styles.sessionDiv}>
+                  <Badge count={item.id}/>
+                  <Tag className={styles.tagStyle}
+                  color={item.id<4?"magenta":"geekblue"}>{item.genre}</Tag>
+                  <span>{item.sold}</span>
                   </div>
                 )))
               }
@@ -90,22 +94,29 @@ class Monitor extends React.Component{
   render(){
      
     return (
-      <div style={{minHeight:'800px'}}>
+      <div    
+      className={styles.pageContent}>
         <TabCard columnChartData={this.state.columnChartData}
-        barChartData={this.state.barChartData}/>
+        barChartData={this.state.barChartData}
+        />
+
         <Row>
-          <Col span={12}>
-          <Card size='small'
+          <Col span={12} >
+            <Card size='small'
+            className={styles.smallTable}
               title="TOP 10热门品类"
-              extra={<a href="#">More</a>}>
+              extra={<a href="#">更多</a>}>
               <SmallTable tableData={this.state.tableData}/>
             </Card>
           </Col>
           <Col span={12}>
             <Card size='small'
+            className={styles.pieChart}
               title="销售额类别占比"
               extra={<a href="#">More</a>}>
-              <SimplePieChart dataSource={this.state.pieChartData}/>
+              <SimplePieChart 
+              height={300}
+              dataSource={this.state.pieChartData}/>
             </Card>
           </Col>
         </Row>

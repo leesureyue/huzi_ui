@@ -14,7 +14,10 @@ class SimpleBarChart  extends React.Component {
     });
     const data = dv.rows;
     return (
-      <Chart forceFit height={400} data={data}>
+      <Chart forceFit 
+      height={320} 
+      
+      data={data}>
         <Coord type="rect" direction="LB" />
         <Tooltip />
         <Axis dataKey="country" label={{ offset: 12 }} />
