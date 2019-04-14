@@ -15,10 +15,6 @@ const menuData = [
     name: '数据分析',
     icon: 'bar-chart',
     path: 'monitor',
-  },{
-    name:'工作空间',
-    icon:'line-chart',
-    path:'workplace'
   }
 ];
 

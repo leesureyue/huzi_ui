@@ -14,8 +14,7 @@ export default {
       routes:[
         {path:'/',component:'Dashboard/Welcome'},
         {path:'analysis',component:'Dashboard/Analysis'},
-        {path:'monitor',component:'Dashboard/Monitor'},
-        {path:'workplace',component:'Dashboard/WorkSpace'}
+        {path:'monitor',component:'Dashboard/Monitor'}
       ]
     }]
 }
