@@ -68,18 +68,9 @@ class Monitor extends React.Component{
     fetch('/chart/getColumnChartData')
     .then(res=>res.json())
     .then(data=>{
-      this.setState({columnChartData:data.result})
-    })
-    .catch(e=>console.log(e));
+      this.setState({columnChartData:data})
+    }).catch(e=>console.log(e));
 
-    fetch('/chart/getBarChartData')
-    .then(res=>res.json())
-    .then(data=>{
-      if(data.code!=200){
-        message.error(data.msg);
-      }
-      this.setState({barChartData:data.result});
-    })
 
     fetch('/chart/getPieChartData')
     .then(res=>res.json())
@@ -88,7 +79,7 @@ class Monitor extends React.Component{
         message.error(data.msg);
       }
       this.setState({pieChartData:data.result})
-    })
+    }).catch(e=>console.log(e));
   }
 
   render(){
@@ -96,7 +87,8 @@ class Monitor extends React.Component{
     return (
       <div    
       className={styles.pageContent}>
-        <TabCard columnChartData={this.state.columnChartData}
+        <TabCard 
+        columnChartData={this.state.columnChartData}
         barChartData={this.state.barChartData}
         />
 

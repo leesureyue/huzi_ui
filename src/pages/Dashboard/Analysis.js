@@ -1,8 +1,7 @@
 import styles from './Analysis.less';
 import React from 'react';
-import {message,Divider,Col,Row} from 'antd';
+import {message,Card} from 'antd';
 import CurveChart from '../../component/SimpleChart/CurveChart';
-import SimplePieChart from '../../component/SimpleChart/SimplePieChart';
 import CricleListChart from '../../component/SimpleChart/CricleListChart';
 
 
@@ -12,52 +11,50 @@ class Analysis extends React.Component{
     super(props);
   }
   state={
-    pieChartData:[],
+    curveChart:[],
     waterWave:[],
   }
 
-  componentDidMount(){
-    fetch('/chart/getPieChartData')
+  componentDidMount(){ 
+    fetch('/chart/getCurveChart')
     .then(res=>res.json())
     .then(data=>{
       if(data.code!=200){
         message.error(data.msg);
       }
-      this.setState({pieChartData:data.result})
+      this.setState({curveChart:data})
     })
 
 
-    fetch('/chart/getCricleListChart')
+    fetch('/get/pay/conversion/rate')
     .then(res=>res.json())
     .then(data=>{
       if(data!=200){
         message.error(data.msg);
       }
-
-      this.setState({waterWave:data.result})
+     this.setState({waterWave:data})
     })
   }
 
   render(){
     return (
       <div className={styles.pageContent} style={{minHeight:'800px',minWidth:'900px'}}>
-        <h3><span>总下单数：1732</span>
-        
-        </h3>
-        <Row>
-          <Col span={12}>
-            <SimplePieChart 
-            height={400} 
-            dataSource={this.state.pieChartData}/>
-          </Col>
-          <Col span={12}>
-            <CurveChart/>
-          </Col>
-        </Row>
-        <Divider/>
-        <h3>下单/支付 转换率</h3>
-        <CricleListChart dataSource={this.state.waterWave}/>
-  </div>)}
+          
+      <Card
+        title="下单转换率"
+        extra={<a href="#">了解更多</a>}
+        className={styles.curveChartStyle}
+      >
+        <CurveChart  
+        dataSource={this.state.curveChart}/>
+      </Card>
+       <div className={styles.circleChartStyle}>
+       <CricleListChart
+        className={styles.chart}
+        dataSource={this.state.waterWave}
+        />
+       </div>
+    </div>)}
 }
 
 export default Analysis;

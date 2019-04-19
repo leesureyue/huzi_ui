@@ -2,10 +2,28 @@ import { Chart, Tooltip, Axis, Bar, Coord } from 'viser-react';
 import * as React from 'react';
 const DataSet = require('@antv/data-set');
 
+/**
+ *  条形图
+ */
 class SimpleBarChart  extends React.Component {
   
+  constructor(props){
+    super(props)
+  }
+  state={
+    dataSource:[]
+  }
+  componentDidMount(){
+    fetch('/chart/getBarChartData')
+    .then(res=>res.json())
+    .then(data=>{
+      this.setState({dataSource:data})
+    }).catch(e=>console.log(e));
+  }
+
+
   render() {
-    const dv = new DataSet.View().source(this.props.dataSource);
+    const dv = new DataSet.View().source(this.state.dataSource);
     dv.transform({
       type: 'sort',
       callback(a, b) {

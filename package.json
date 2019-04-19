@@ -21,6 +21,7 @@
     "bizcharts": "^3.4.5",
     "lodash": "^4.17.11",
     "lodash-decorators": "^6.0.1",
-    "react-num-wheel": "^1.0.0"
+    "react-num-wheel": "^1.0.0",
+    "reqwest": "^2.0.5"
   }
 }

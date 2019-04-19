@@ -20,6 +20,7 @@ class CricleListChart extends React.Component {
         container="mountNode"
         forceFit={true}
         height={200}
+        width={300} 
         data={this.props.dataSource}
         padding={0}
         scale={scale}
@@ -30,30 +31,28 @@ class CricleListChart extends React.Component {
           color="gender"
           shape="liquid-fill-gauge"
           style={{
-            lineWidth: 10,
-            opacity: 0.75,
+            lineWidth: 5,
+            opacity: 0.8,
           }}
         />
         {this.props.dataSource.map((row, index) => {
-          console.log(row)
-          return (
-            <div>
-              
-              <Guide
-              key={index}
-              type="text"
-              top={true}
-              position={{
-                gender: row.gender,
-                value: 50,
-              }}
-              content={row.value + '%'}
-              style={{
-                fontSize: 40,
-                textAlign: 'center',
-              }}>
-              </Guide>
-            </div>
+           
+          return (  
+            <Guide
+            key={index}
+            type="text"
+            top={true}
+            position={{
+              gender: row.gender,
+              value: 50,
+            }}
+            content={row.value + '%'}
+            style={{
+              fontSize: 20,
+              textAlign: 'center',
+            }}>
+            </Guide>  
+             
           );
         })}
       </Chart>
