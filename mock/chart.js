@@ -16,30 +16,23 @@ export default {
     ])
   },
   'get /chart/getPieChartData':function(req,res,next){
-    res.json({
-      result:[
-        { item: '事例一', count: 40 },
-        { item: '事例二', count: 21 },
-        { item: '事例三', count: 17 },
-        { item: '事例四', count: 13 },
-        { item: '事例五', count: 9 }
-      ],
-      code:200,
-      msg:'success'
-  })
+    res.json(
+      [
+        { item: '事例一', count: 123 },
+        { item: '事例二', count: 345 },
+        { item: '事例三', count: 234 },
+        { item: '事例四', count: 230 },
+        { item: '事例五', count: 524 }
+      ])
   },
   'get /get/pay/conversion/rate':function(req,res,next){
     res.json([ 
-      {gender: 'Store 1',value: 40,},
-      {gender: 'Store 2',value: 25,}, 
+      {gender: 'Store 1',value: 40.5,},
+      {gender: 'Store 2',value: 0.25,}, 
       {gender: 'Store 3',value: 25},
       {gender: 'Store 4',value:20},
       {gender: 'Store 5',value: 40,},
-      {gender: 'Store 6',value: 25,}, 
-      {gender: 'Store 7',value: 25},
-      {gender: 'Store 8',value:20},
-      {gender: 'Store 9',value: 25},
-      {gender: 'Store 10',value:20}
+      
      
     ])
   },
@@ -54,21 +47,20 @@ export default {
       ])
   },
   'get /table/getTableData':function(req,res,next){
-    res.json({
-      result:[{
-
+    res.json([
+      { 
         id: 1,
         ranking: 1,
         category: '类别1',
         total: 1732,
-        paid:'20%'
+        paid:0.1356
       }, {
        
         id: 2,
         ranking:2,
         category: '类别2',
         total: 1628,
-        paid:'20%'
+        paid:0.1356
       }, {
        
         id:3,
@@ -76,7 +68,7 @@ export default {
         category: '类别3',
         age: 32,
         total: 1634,
-        paid:'20%'
+        paid:0.1346
       }, {
         
         id:4,
@@ -84,14 +76,57 @@ export default {
         category: '类别4',
         age: 32,
         total: 1290,
-        paid:'20%'
-      }],
-      code:200,
-      total:100,
-      pageSize:20,
-      currentPage:2,
-      msg:'success'
-    })
+        paid:0.1356
+      },
+      {
+       
+        id: 5,
+        ranking:2,
+        category: '类别2',
+        total: 1628,
+        paid:0.1356
+      }, {
+       
+        id:6,
+        ranking:3,
+        category: '类别3',
+        age: 32,
+        total: 1634,
+        paid:0.1356
+      }, 
+      {
+       
+        id: 7,
+        ranking:2,
+        category: '类别2',
+        total: 1628,
+        paid:0.1356
+      }, {
+       
+        id:8,
+        ranking:3,
+        category: '类别3',
+        age: 32,
+        total: 1634,
+        paid:0.1356
+      }, 
+      {
+       
+        id: 9,
+        ranking:2,
+        category: '类别2',
+        total: 1628,
+        paid:0.1356
+      }, {
+       
+        id:10,
+        ranking:3,
+        category: '类别3',
+        age: 32,
+        total: 1634,
+        paid:0.1356
+      } 
+    ])
   },
   'get /chart/getCurveChart':function(req,res,next){
     res.json([
@@ -111,18 +146,39 @@ export default {
       {name: "Four",orderCount: 18.3,clickCount: 10.3}, 
     ])
   },
-  'post /form/submit_1':function(req,res,next){
+  'post /create/session/task':function(req,res,next){
     res.json({
       code:200,
       success:true,
       msg:'success'
     })
   },
-  'post /form/submit_2':function(req,res,next){
+  'post /create/pageflow/task':function(req,res,next){
     res.json({
       code:200,
       success:true,
       msg:'success'
+    })
+  },
+  'get /chart/getColumnChartData/rank':function(req,res,next){
+    res.json([
+      { id:1, genre: 'Sports', sold: 275 },
+      { id:2,genre: 'Strategy', sold: 1150 },
+      { id:3,genre: 'Action', sold: 120 },
+      { id:4,genre: 'Shooter', sold: 350 },
+      { id:5,genre: 'Other', sold: 150 },
+      { id:6,genre:'The Other',sold:123},
+      { id:7, genre: 'one', sold: 275 },
+      { id:8,genre: 'two', sold: 1150 },
+      { id:9,genre: 'three', sold: 120 },
+      { id:10,genre: 'four', sold: 350 },
+       
+    ])
+  },
+  'post /user/login':function(req,res,next){
+    res.json({
+      userName:'wuhuzi',
+      userPassword:'123',
     })
   }
 }

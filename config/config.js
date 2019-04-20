@@ -12,9 +12,11 @@ export default {
       path:'/',
       component:'index.js',
       routes:[
-        {path:'/',component:'Dashboard/Welcome'},
+        {path:'/',component:'Dashboard/Login'},
+        {path:'/welcome',component:'Dashboard/Welcome'},
         {path:'analysis',component:'Dashboard/Analysis'},
-        {path:'monitor',component:'Dashboard/Monitor'}
+        {path:'monitor',component:'Dashboard/Monitor'},
+       
       ]
     }]
 }

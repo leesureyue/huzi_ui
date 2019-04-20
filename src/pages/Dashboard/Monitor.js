@@ -12,23 +12,23 @@ class TabCard extends React.Component{
     super(props);
   }
   
-  render(){
-     
+  render(){ 
     return(
       <Tabs tabBarExtraContent={<RangePicker/>} 
       className={styles.tabList}>
-        <Tabs.TabPane tab="Session访问" key="1">
+        <Tabs.TabPane tab="Session访问步长" 
+        key="1">
         <Row>
           <Col span={16}>
             <SimpleColumnChart  
             dataSource={this.props.columnChartData}/>
           </Col>
           <Col span={8}>
-            <h3>Session 排行榜</h3>
+            <h3>Session 访问时长排行榜</h3>
             <div>
               {
-                this.props.columnChartData && 
-                (this.props.columnChartData.map(item=>(
+                this.props.sessionData && 
+                (this.props.sessionData.map(item=>(
                   <div key={item.id} 
                   className={styles.sessionDiv}>
                   <Badge count={item.id}/>
@@ -59,26 +59,30 @@ class Monitor extends React.Component{
   state={
     columnChartData:[],
     barChartData:[],
+    sessionData:[],
     pieChartData:[],
     tableData:[]
   }
 
-  componentDidMount(){
-    
+  componentDidMount(){ 
     fetch('/chart/getColumnChartData')
     .then(res=>res.json())
     .then(data=>{
       this.setState({columnChartData:data})
     }).catch(e=>console.log(e));
 
+    fetch('/chart/getColumnChartData/rank')
+    .then(res=>res.json())
+    .then(data=>{
+       
+      this.setState({sessionData:data})
+    }).catch(e=>console.log(e));
+
 
     fetch('/chart/getPieChartData')
     .then(res=>res.json())
-    .then(data=>{
-      if(data.code!=200){
-        message.error(data.msg);
-      }
-      this.setState({pieChartData:data.result})
+    .then(data=>{ 
+      this.setState({pieChartData:data})
     }).catch(e=>console.log(e));
   }
 
@@ -89,6 +93,7 @@ class Monitor extends React.Component{
       className={styles.pageContent}>
         <TabCard 
         columnChartData={this.state.columnChartData}
+        sessionData={this.state.sessionData}
         barChartData={this.state.barChartData}
         />
 
@@ -104,7 +109,7 @@ class Monitor extends React.Component{
           <Col span={12}>
             <Card size='small'
             className={styles.pieChart}
-              title="销售额类别占比"
+              title="TOP10商品点击占比"
               extra={<a href="#">More</a>}>
               <SimplePieChart 
               height={300}

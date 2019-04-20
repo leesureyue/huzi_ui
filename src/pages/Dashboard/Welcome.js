@@ -1,19 +1,15 @@
 import React from 'react';
 import {Form,Radio,Button,Input,DatePicker,Select} from 'antd';
 import styles from './Welcome.less'
+import cookie from 'react-cookies';
 import reqwest from 'reqwest';
-import { stringify } from 'querystring';
-import CloudShape from '../../component/CloudShape';
+
+
 
 const {RangePicker } =DatePicker;
 const formItemLayout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 14 },
-}
-
-const formItemAgeLayout={
-  labelCol : {span : 8},
-  wrapperCol : {span:14} 
 }
 
 const TaskCreateForm = Form.create('choooseOne')(
@@ -36,12 +32,13 @@ const TaskCreateForm = Form.create('choooseOne')(
         const rangeDate = fieldsValue['date'];
         const values ={
           ...fieldsValue,
-          'date':rangeDate[0].format('YYYY-MM-DD')+'/'+rangeDate[1].format('YYYY-MM-DD')
+          'date':rangeDate[0].format('YYYY-MM-DD')+'='
+          +rangeDate[1].format('YYYY-MM-DD')
         }
         if (!err) { 
           if(this.state.choose=='choose_1'){
             reqwest({
-              url:'/form/submit_1',
+              url:'/create/session/task',
               method:'POST',
               data:values
             })
@@ -50,7 +47,7 @@ const TaskCreateForm = Form.create('choooseOne')(
             })
           }else{
             reqwest({
-              url:'/form/submit_2',
+              url:'/create/pageflow/task',
               method:'POST',
               data:values
             })
@@ -67,7 +64,7 @@ const TaskCreateForm = Form.create('choooseOne')(
     render(){   
       const children=[];
       for(let i=1;i<=100;i++){
-        children.push(<Select.Option key={i}>{i+'age'}</Select.Option>)
+        children.push(<Select.Option key={i}>{i}</Select.Option>)
       }
       return(
         <div>
@@ -186,6 +183,14 @@ const TaskCreateForm = Form.create('choooseOne')(
 class WelcomePage extends React.Component{ 
   constructor(props){
     super(props);
+  }
+
+
+  componentWillMount(){
+    let name = cookie.load('name');
+    if(typeof(name)=='undefined'){
+      this.props.history.push('/')
+    }
   }
 
   render(){

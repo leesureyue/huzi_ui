@@ -12,43 +12,26 @@ class SmallTable extends React.Component{
     filteredInfo: null,
     sortedInfo: null,
     tableData:[],
-    loading: false,
-    pagination:{
-      current:1,
-      pageSize:10,
-    }
+    loading: false, 
+    pagination:{pageSize:5}
   };
 
   componentDidMount(){
     fetch('/table/getTableData')
     .then(res=>res.json())
-    .then(data=>{
-      if(data.code!=200){
-        message.error(data.msg);
-      }
-      const pager = {...this.state.pagination}
-      pager.total = data.total;
-      this.setState({tableData:data.result,
-      pagination:pager})
+    .then(data=>{  
+      this.setState({tableData:data})
     })
   }
-  handleChange = (pagination, filters, sorter) => {
-    const pager = { ...this.state.pagination };
-    pager.current = pagination.current;
-    pager.total=pagination.total
+  handleChange = (pagination, filters, sorter) => { 
+    const pager = { ...this.state.pagination }; 
     this.setState({
       pagination: pager,
     });
-    fetch('/table/getTableData?current='+pagination.current+'&&pageSize='+pagination.pageSize)
-    .then(res=>res.json())
-    .then(data=>{
-      this.setState({tableData:data.result})
-    })
-    
+     
     this.setState({
       filteredInfo: filters,
-      sortedInfo: sorter,
-
+      sortedInfo: sorter, 
     });
   }
 
@@ -102,16 +85,17 @@ class SmallTable extends React.Component{
       title:'支付占比',
       dataIndex:'paid',
       key:'paid',
-      render:text=>(<span>{text}<Icon type="caret-up" style={{color:'red'}}/></span>)
+      render:text=>(<span>{text} % <Icon type="caret-up" 
+      style={{color:'red'}}/>
+      </span>)
     }];
 
     return (
       <Table  columns={columns} 
-              rowKey={record => record.id}
-              loading={this.state.loading}
-              dataSource={this.state.tableData} 
-              onChange={this.handleChange} 
+              onChange={this.handleChange}
               pagination={this.state.pagination}
+              rowKey={record => record.id} 
+              dataSource={this.state.tableData}  
       size='small'/>
     )
   }

@@ -19,9 +19,7 @@ class Analysis extends React.Component{
     fetch('/chart/getCurveChart')
     .then(res=>res.json())
     .then(data=>{
-      if(data.code!=200){
-        message.error(data.msg);
-      }
+      message.success('success')
       this.setState({curveChart:data})
     })
 
@@ -29,9 +27,7 @@ class Analysis extends React.Component{
     fetch('/get/pay/conversion/rate')
     .then(res=>res.json())
     .then(data=>{
-      if(data!=200){
-        message.error(data.msg);
-      }
+      
      this.setState({waterWave:data})
     })
   }
@@ -41,18 +37,18 @@ class Analysis extends React.Component{
       <div className={styles.pageContent} style={{minHeight:'800px',minWidth:'900px'}}>
           
       <Card
-        title="下单转换率"
+        title="商品点击数-下单数"
         extra={<a href="#">了解更多</a>}
         className={styles.curveChartStyle}
       >
         <CurveChart  
         dataSource={this.state.curveChart}/>
-      </Card>
-       <div className={styles.circleChartStyle}>
-       <CricleListChart
-        className={styles.chart}
-        dataSource={this.state.waterWave}
-        />
+        </Card>
+       <div>
+         <p>下单/支付转化率</p>
+        <CricleListChart 
+          dataSource={this.state.waterWave}
+          />
        </div>
     </div>)}
 }

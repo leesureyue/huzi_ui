@@ -20,7 +20,6 @@ class CricleListChart extends React.Component {
         container="mountNode"
         forceFit={true}
         height={200}
-        width={300} 
         data={this.props.dataSource}
         padding={0}
         scale={scale}

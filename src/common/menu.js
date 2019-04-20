@@ -7,12 +7,12 @@ export function isUrl(path) {
 
 const menuData = [
   {
-    name: '后台管理',
+    name: 'Category Analysis',
     icon: 'pie-chart',
     path: 'analysis',
   },
   {
-    name: '数据分析',
+    name: 'Session Analysis',
     icon: 'bar-chart',
     path: 'monitor',
   }

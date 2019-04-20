@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
-import { Menu, Icon, Spin, Tag, Dropdown, Avatar, Divider, Tooltip, Button } from 'antd';
+import { Menu, Icon, Spin, Tag, Dropdown, 
+  Avatar, Divider, Tooltip, Button ,message} from 'antd';
 import moment from 'moment';
 import groupBy from 'lodash/groupBy';
 import Debounce from 'lodash-decorators/debounce';
@@ -8,11 +9,14 @@ import {  setLocale, getLocale } from 'umi/locale';
 import NoticeIcon from '../NoticeIcon';
 import HeaderSearch from '../HeaderSearch';
 import styles from './index.less';
+import cookie from 'react-cookies';
 
 export default class GlobalHeader extends PureComponent {
   componentWillUnmount() {
     this.triggerResizeEvent.cancel();
   }
+
+   
   getNoticeData() {
     const { notices = [] } = this.props;
     if (notices.length === 0) {
@@ -64,6 +68,11 @@ export default class GlobalHeader extends PureComponent {
       setLocale('zh-CN');
     }
   }
+  logout(){ 
+    cookie.remove('name');
+    cookie.remove('pwd')
+    message.success('logout!')
+  }
   render() {
     const {
       currentUser = {},
@@ -83,12 +92,11 @@ export default class GlobalHeader extends PureComponent {
         <Menu.Item disabled>
           <Icon type="setting" />设置
         </Menu.Item>
-        <Menu.Item key="triggerError">
-          <Icon type="close-circle" />触发报错
-        </Menu.Item>
+        
         <Menu.Divider />
-        <Menu.Item key="logout">
-          <Icon type="logout" />退出登录
+        <Menu.Item key="logout" onClick={this.logout}>
+        <Link to='/'>
+        <Icon type="logout" />退出登录</Link>
         </Menu.Item>
       </Menu>
     );
@@ -110,7 +118,7 @@ export default class GlobalHeader extends PureComponent {
           <HeaderSearch
             className={`${styles.action} ${styles.search}`}
             placeholder="站内搜索"
-            dataSource={['后台管理', '数据分析', '工作空间']}
+            dataSource={['后台管理', '数据分析']}
             onSearch={value => {
               console.log('input', value); // eslint-disable-line
             }}
@@ -122,7 +130,7 @@ export default class GlobalHeader extends PureComponent {
           <Tooltip title="使用文档">
             <a
               target="_blank"
-              href="http://pro.ant.design/docs/getting-started"
+              href="#"
               rel="noopener noreferrer"
               className={styles.action}
             >

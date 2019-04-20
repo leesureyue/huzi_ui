@@ -5,7 +5,7 @@ const DataSet = require('@antv/data-set');
 const scale = [{
   dataKey: 'percent',
   min: 0,
-  formatter: '.0%',
+  formatter: '.2%',
 }];
 
 //饼图
