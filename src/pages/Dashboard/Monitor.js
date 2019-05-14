@@ -6,7 +6,6 @@ import SimpleBarChart from '../../component/SimpleChart/SimpleBarChart';
 import SimplePieChart from '../../component/SimpleChart/SimplePieChart';
 import SmallTable from '../../component/SmallTable';
 
-const {  RangePicker } = DatePicker;
 class TabCard extends React.Component{
   constructor(props){
     super(props);
@@ -14,9 +13,8 @@ class TabCard extends React.Component{
   
   render(){ 
     return(
-      <Tabs tabBarExtraContent={<RangePicker/>} 
-      className={styles.tabList}>
-        <Tabs.TabPane tab="Session访问步长" 
+      <Tabs className={styles.tabList}>
+        <Tabs.TabPane tab="淮北市" 
         key="1">
         <Row>
           <Col span={16}>
@@ -42,7 +40,25 @@ class TabCard extends React.Component{
           </Col>
         </Row>
         </Tabs.TabPane>
-        <Tabs.TabPane tab="页面单跳转换率" key="2">
+        <Tabs.TabPane tab="徐州市" key="2">
+          <SimpleBarChart dataSource={this.props.barChartData}/>
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="宿迁市" key="3">
+          <SimpleBarChart dataSource={this.props.barChartData}/>
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="连云港市" key="4">
+          <SimpleBarChart dataSource={this.props.barChartData}/>
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="枣庄市" key="5">
+          <SimpleBarChart dataSource={this.props.barChartData}/>
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="济宁市" key="6">
+          <SimpleBarChart dataSource={this.props.barChartData}/>
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="商丘市" key="7">
+          <SimpleBarChart dataSource={this.props.barChartData}/>
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="宿州市" key="8">
           <SimpleBarChart dataSource={this.props.barChartData}/>
         </Tabs.TabPane>
       </Tabs>
@@ -64,7 +80,18 @@ class Monitor extends React.Component{
     tableData:[]
   }
 
+  getData=(city)=>{
+    fetch('http://api.help.bj.cn/apis/aqi/?id='+city)
+    .then(res=>res.json())
+    .then(data=>{
+      console.log(data);
+    })
+
+  }
+  
+  
   componentDidMount(){ 
+    this.getData('长春');
     fetch('/chart/getColumnChartData')
     .then(res=>res.json())
     .then(data=>{
