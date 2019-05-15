@@ -50,14 +50,21 @@ const color = ['#0086FA', '#FFBF00', '#F5222D'];
 export default class App extends React.Component {
   
   state= {
-    data: [{ value: 7},],
+    data: [{ value: 0},],
     trend: 'up',
   } ;
 
+  componentDidMount(){
+    const nextVal = this.props.aqi/10;
+    this.setState({ data: [{ value: nextVal }] });
+
+  }
+
   render() { 
     const { data } = this.state;
-    const val = data[0].value;
-
+    data[0].value=this.props.aqi/10;
+    const val = this.props.aqi/10;
+    
     return (
       <div>
         <Chart forceFit height={400} data={data} scale={scale} animate={false}>
