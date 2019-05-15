@@ -1,71 +1,38 @@
-import React from "react";
-import {
-  Chart,
-  Geom,
-  Axis,
-  Tooltip,
-  Legend
-} from "bizcharts";
-import DataSet from "@antv/data-set";
+import { Chart, Tooltip, Axis, Legend, Line, Point } from 'viser-react';
+import * as React from 'react';
+const DataSet = require('@antv/data-set');
 
-class Curved extends React.Component {
+export default class App extends React.Component {
+  
   render() {
-    const ds = new DataSet();
-    const dv = ds.createView().source(this.props.dataSource);
+    const dv = new DataSet.View().source(this.props.dataSource);
     dv.transform({
-      type: "fold",
-      fields: ["orderCount", "clickCount"],
-      // 展开字段集
-      key: "city",
-      // key字段
-      value: "number" // value字段
+      type: 'fold',
+      fields: ['aqi', 'pm25'],
+      key: 'city',
+      value: 'temperature',
     });
-   
-    const cols = {
-      month: {
-        range: [0, 1]
-      }
-    };
+    const data = dv.rows;
+
+    const scale = [{
+      dataKey: 'add',
+      min: 0,
+      max: 1,
+    }];
+
     return (
-      <div>
-        <Chart 
-        height={400}  
-        data={dv} scale={cols} forceFit>
-          <Legend />
-          <Axis name="name" />
-          <Axis
-            name="number"
-            label={{
-              formatter: val => `${val}`
-            }}
-          />
-          <Tooltip
-            crosshairs={{
-              type: "y"
-            }}
-          />
-          <Geom
-            type="line"
-            position="name*number"
-            size={2}
-            color={"city"}
-            shape={"smooth"}
-          />
-          <Geom
-            type="point"
-            position="name*number"
-            size={4}
-            shape={"circle"}
-            color={"city"}
-            style={{
-              stroke: "#fff",
-              lineWidth: 1
-            }}
-          />
-        </Chart>
-      </div>
+      <Chart forceFit height={400} data={data} scale={scale}>
+        <Tooltip />
+        <Axis />
+        <Legend />
+        <Line position="add*temperature" color="city" />
+        <Point position="add*temperature" color="city" size={4} style={{ stroke: '#fff', lineWidth: 1 }} shape="circle"/>
+      </Chart>
     );
   }
 }
 
-export default Curved;
+
+
+
+

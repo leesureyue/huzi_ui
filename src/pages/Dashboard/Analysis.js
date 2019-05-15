@@ -3,6 +3,8 @@ import React from 'react';
 import {message,Card} from 'antd';
 import CurveChart from '../../component/SimpleChart/CurveChart';
 import CricleListChart from '../../component/SimpleChart/CricleListChart';
+import WorldMap from '../../component/SimpleChart/WorldMap';
+
 
 
 class Analysis extends React.Component{
@@ -37,19 +39,12 @@ class Analysis extends React.Component{
       <div className={styles.pageContent} style={{minHeight:'800px',minWidth:'900px'}}>
           
       <Card
-        title="商品点击数-下单数"
+        title="AQI级别分布图"
         extra={<a href="#">了解更多</a>}
         className={styles.curveChartStyle}
       >
-        <CurveChart  
-        dataSource={this.state.curveChart}/>
+        <WorldMap/>
         </Card>
-       <div>
-         <p>下单/支付转化率</p>
-        <CricleListChart 
-          dataSource={this.state.waterWave}
-          />
-       </div>
     </div>)}
 }
 

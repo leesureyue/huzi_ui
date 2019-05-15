@@ -1,70 +1,19 @@
 import styles from './Monitor.less';
 import React from 'react';
-import {DatePicker,Row,Col,Badge ,Tabs,Tag,Card,message} from 'antd';
+import {Row,Col ,Tabs} from 'antd';
 import SimpleColumnChart from '../../component/SimpleChart/SimpleColumnChart';
-import SimpleBarChart from '../../component/SimpleChart/SimpleBarChart';
-import SimplePieChart from '../../component/SimpleChart/SimplePieChart';
-import SmallTable from '../../component/SmallTable';
+import CurveChart from '../../component/SimpleChart/CurveChart';
+import MeterShart from '../../component/SimpleChart/MeterChart';
 
-class TabCard extends React.Component{
-  constructor(props){
-    super(props);
-  }
-  
-  render(){ 
-    return(
-      <Tabs className={styles.tabList}>
-        <Tabs.TabPane tab="淮北市" 
-        key="1">
-        <Row>
-          <Col span={16}>
-            <SimpleColumnChart  
-            dataSource={this.props.columnChartData}/>
-          </Col>
-          <Col span={8}>
-            <h3>Session 访问时长排行榜</h3>
-            <div>
-              {
-                this.props.sessionData && 
-                (this.props.sessionData.map(item=>(
-                  <div key={item.id} 
-                  className={styles.sessionDiv}>
-                  <Badge count={item.id}/>
-                  <Tag className={styles.tagStyle}
-                  color={item.id<4?"magenta":"geekblue"}>{item.genre}</Tag>
-                  <span>{item.sold}</span>
-                  </div>
-                )))
-              }
-            </div>
-          </Col>
-        </Row>
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="徐州市" key="2">
-          <SimpleBarChart dataSource={this.props.barChartData}/>
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="宿迁市" key="3">
-          <SimpleBarChart dataSource={this.props.barChartData}/>
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="连云港市" key="4">
-          <SimpleBarChart dataSource={this.props.barChartData}/>
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="枣庄市" key="5">
-          <SimpleBarChart dataSource={this.props.barChartData}/>
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="济宁市" key="6">
-          <SimpleBarChart dataSource={this.props.barChartData}/>
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="商丘市" key="7">
-          <SimpleBarChart dataSource={this.props.barChartData}/>
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="宿州市" key="8">
-          <SimpleBarChart dataSource={this.props.barChartData}/>
-        </Tabs.TabPane>
-      </Tabs>
-  )
-} 
-}
+
+const cities=["淮北",
+    "徐州",
+    "宿迁",
+    "连云港",
+    "枣庄",
+    "济宁",
+    "商丘",
+    "宿州"];
 
 //直方图分析页面
 class Monitor extends React.Component{
@@ -72,78 +21,65 @@ class Monitor extends React.Component{
   constructor(props){
     super(props);
   }
-  state={
-    columnChartData:[],
-    barChartData:[],
-    sessionData:[],
-    pieChartData:[],
-    tableData:[]
+  state={ 
+    aqi:0,
+    citydata:[],
   }
+
 
   getData=(city)=>{
     fetch('http://api.help.bj.cn/apis/aqi/?id='+city)
     .then(res=>res.json())
     .then(data=>{
-      console.log(data);
-    })
+      data.data.map((value)=>{
+         value.aqi= parseInt(value.aqi);
+         value.pm25=parseInt(value.pm25);
+         value.lv=parseInt(value.lv);
+         return value;
+      })
+      this.setState({
+        citydata:data.data,
+        aqi:data.aqi});
+    }) 
+  } 
 
+  callback=(key)=>{
+    this.getData(cities[key])
   }
-  
-  
   componentDidMount(){ 
-    this.getData('长春');
-    fetch('/chart/getColumnChartData')
-    .then(res=>res.json())
-    .then(data=>{
-      this.setState({columnChartData:data})
-    }).catch(e=>console.log(e));
-
-    fetch('/chart/getColumnChartData/rank')
-    .then(res=>res.json())
-    .then(data=>{
-       
-      this.setState({sessionData:data})
-    }).catch(e=>console.log(e));
-
-
-    fetch('/chart/getPieChartData')
-    .then(res=>res.json())
-    .then(data=>{ 
-      this.setState({pieChartData:data})
-    }).catch(e=>console.log(e));
+    this.getData('徐州');
   }
 
-  render(){
-     
+  render(){ 
     return (
       <div    
-      className={styles.pageContent}>
-        <TabCard 
-        columnChartData={this.state.columnChartData}
-        sessionData={this.state.sessionData}
-        barChartData={this.state.barChartData}
-        />
-
-        <Row>
-          <Col span={12} >
-            <Card size='small'
-            className={styles.smallTable}
-              title="TOP 10热门品类"
-              extra={<a href="#">更多</a>}>
-              <SmallTable tableData={this.state.tableData}/>
-            </Card>
-          </Col>
-          <Col span={12}>
-            <Card size='small'
-            className={styles.pieChart}
-              title="TOP10商品点击占比"
-              extra={<a href="#">More</a>}>
-              <SimplePieChart 
-              height={300}
-              dataSource={this.state.pieChartData}/>
-            </Card>
-          </Col>
-        </Row>
+        className={styles.pageContent}> 
+         <Tabs className={styles.tabList}
+         onChange={this.callback}>
+          {
+            cities.map((data,i)=>{
+              return (
+                
+                <Tabs.TabPane tab={data} 
+                key={i}>
+                <Row>
+                  <Col span={8} >
+                    <MeterShart aqi={this.state.aqi}/>
+                  </Col>
+                  <Col span={16} >
+                    <h2>{data}市AQI指数直方图分析</h2>
+                    <SimpleColumnChart  
+                    citydata={this.state.citydata}/>
+                  </Col>
+                </Row>
+                <h3>AQI与PM2.5分析图</h3>
+                <CurveChart 
+                dataSource={this.state.citydata}/>
+                </Tabs.TabPane>
+              )
+            })
+          } 
+      </Tabs>
     </div>
     )
   }

@@ -45,7 +45,7 @@ class DashboardLayout extends Component{
                   logo={logo}
                   collapsed={this.state.collapsed}
                   currentUser={{
-                    name: 'wuhuzi',
+                    name: 'leesure',
                     avatar: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
                     userid: '00000001', 
                   }}
